@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:flutter/material.dart';
 import 'blackjack.dart'; // Put your blackjack library in a separate file
 import 'package:flutter/services.dart';
@@ -31,7 +32,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   late Game game;
   String resultMessage = '';
   bool showDealer = true;
-  int balance = 10000000;
+  int balance = 1000;
   int currentBet = 100;
   int dealerBalance = 1000;
   bool inRound = false;
@@ -125,7 +126,9 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
                 Navigator.of(context).pop(); // close the dialog
                 balance = 1000;
                 dealerBalance = 5000;
+                currentBet = 100;
                 resetGame();
+                inRound = false;
               },
             ),
           ],
@@ -137,7 +140,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   void resetGame() {
     setState(() {
       if (currentBet > balance) {
-        currentBet = balance ~/ 2;
+        currentBet = balance;
       }
       inRound = true;
       game = Game();
@@ -162,13 +165,59 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Blackjack')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+  appBar: AppBar(
+    title: const Text('Blackjack'),
+  ),
+  drawer: Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        const DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.black54,
+          ),
+          child: Text(
+            'Games Menu',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.casino),
+          title: const Text('Blackjack'),
+          onTap: () {
+            Navigator.pop(context); // close drawer
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.cookie),
+          title: const Text('Coming Soon: Cookie Clicker'),
+          onTap: () {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Cookie Clicker construction!")),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.exit_to_app),
+          title: const Text('Exit Game'),
+          onTap: () {
+            Navigator.pop(context);
+            SystemNavigator.pop();
+          },
+        ),
+      ],
+    ),
+  ),
+  body: Center(
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -178,14 +227,14 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
                     const SizedBox(height: 10),
                     buildHand("Dealer", game.dealer, reveal: showDealer),
                     Text(
-                      "Dealer Balance: \$${dealerBalance}",
+                      "Dealer Balance: \$$dealerBalance",
                       style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 10),
                     const Divider(height: 150, color: Colors.transparent),
                     buildHand("Player", game.player),
                     Text(
-                      "Balance: \$${balance}",
+                      "Balance: \$$balance",
                       style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 20),
@@ -216,7 +265,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Bet: \$${currentBet}",
+                          "Bet: \$$currentBet",
                           style: const TextStyle(fontSize: 18),
                         ),
                         IconButton(
