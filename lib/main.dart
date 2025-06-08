@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:strip_blackjack/blackjack_app.dart';
 import 'package:strip_blackjack/cookie_clicker.dart';
-import 'blackjack.dart'; 
 import 'package:flutter/services.dart';
 enum GameScreen { blackjack, cookieClicker }
 void main() {
@@ -79,6 +78,7 @@ class _GameHubState extends State<GameHub> {
               },
             ),
             ListTile(
+              enabled : false,
               iconColor: Colors.white,
               textColor: Colors.white,
               leading: const Icon(Icons.cookie),
@@ -88,16 +88,7 @@ class _GameHubState extends State<GameHub> {
                 setState(() => _currentScreen = GameScreen.cookieClicker);
               },
             ),
-            ListTile(
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Exit Game'),
-              onTap: () {
-                Navigator.pop(context);
-                SystemNavigator.pop();
-              },
-            ),
+            //removed exit option. Did not work on windows, exit button works just fine :D
           ],
         ),
       ),
