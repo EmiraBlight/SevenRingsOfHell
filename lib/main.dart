@@ -1,5 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:flutter/material.dart';
+import 'package:strip_blackjack/blackjack_app.dart';
+import 'package:strip_blackjack/cookie_clicker.dart';
 import 'blackjack.dart'; // Put your blackjack library in a separate file
 import 'package:flutter/services.dart';
 enum GameScreen { blackjack, cookieClicker }
@@ -103,28 +105,6 @@ class _GameHubState extends State<GameHub> {
   }
 }
 
-class BlackjackApp extends StatelessWidget {
-  const BlackjackApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      home: const BlackjackHomePage(),
-    );
-  }
-}
-
-class CookieClicker extends StatelessWidget{
-  const CookieClicker({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
-    title: const Text('Cookie Clicker'),
-  ));
-  }
-}
-
 class BlackjackHomePage extends StatefulWidget {
   const BlackjackHomePage({super.key});
 
@@ -155,7 +135,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
       return 'assets/$player/worried.png';
     } else if (dealerBalance >= 100) {
       return 'assets/$player/scared.png';
-    } else if (dealerBalance >= 0) {
+    } else if (dealerBalance > 0) {
       return 'assets/$player/broke.png';
     } else {
       return 'assets/$player/winner.png';
@@ -292,7 +272,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
                       style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 10),
-                    const Divider(height: 150, color: Colors.transparent),
+                    const Divider(height: 100, color: Colors.transparent),
                     buildHand("Player", game.player),
                     Text(
                       "Balance: \$$balance",
