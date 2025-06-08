@@ -13,5 +13,5 @@ Pride - some sort of hotel related game (Charlie, Lucifer, angel dust and maybe 
 Wrath -shooting game (striker , millie/moxie and blitzø)
 Sloth/Goatia - TBD (Octavia, Stolas and Stella)
 Envy - card matching game (fish twins, Stella brother)
-————————————————————————————————————————————————————————————————————————————————————————
+————————————————————————————————————————————————————
 Heaven - some sort of “do good/morality test” game (Sera, Emily, Adam and Lute)
