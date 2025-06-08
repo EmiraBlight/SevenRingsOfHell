@@ -2,11 +2,105 @@
 import 'package:flutter/material.dart';
 import 'blackjack.dart'; // Put your blackjack library in a separate file
 import 'package:flutter/services.dart';
-
+enum GameScreen { blackjack, cookieClicker }
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
 
-  runApp(const BlackjackApp());
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
+      home: const GameHub(),
+    );
+  }
+}
+
+class GameHub extends StatefulWidget {
+  const GameHub({super.key});
+
+  @override
+  State<GameHub> createState() => _GameHubState();
+}
+
+class _GameHubState extends State<GameHub> {
+  GameScreen _currentScreen = GameScreen.blackjack;
+
+  Widget _buildCurrentGame() {
+    switch (_currentScreen) {
+      case GameScreen.blackjack:
+        return const BlackjackApp(); // your main blackjack widget
+      case GameScreen.cookieClicker:
+        return const CookieClicker();
+      default:
+        return const Center(child: Text("Unknown Game"));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return
+    
+     Scaffold(
+      
+      body: _buildCurrentGame(),
+      appBar: AppBar(
+        
+        
+  title: const Text(''),
+  foregroundColor: Colors.black54,
+  backgroundColor: const Color.fromRGBO(19, 18, 20, 1),
+),
+      drawer: Drawer(
+        backgroundColor: Colors.transparent,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: const Icon(Icons.casino),
+              title: const Text('Blackjack'),
+              onTap: () {
+                Navigator.pop(context); // close drawer
+                setState(() => _currentScreen = GameScreen.blackjack);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: const Icon(Icons.cookie),
+              title: const Text('Cookie Clicker'),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() => _currentScreen = GameScreen.cookieClicker);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Exit Game'),
+              onTap: () {
+                Navigator.pop(context);
+                SystemNavigator.pop();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class BlackjackApp extends StatelessWidget {
@@ -18,6 +112,16 @@ class BlackjackApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: const BlackjackHomePage(),
     );
+  }
+}
+
+class CookieClicker extends StatelessWidget{
+  const CookieClicker({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: AppBar(
+    title: const Text('Cookie Clicker'),
+  ));
   }
 }
 
@@ -168,50 +272,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   appBar: AppBar(
     title: const Text('Blackjack'),
   ),
-  drawer: Drawer(
-    child: ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        const DrawerHeader(
-          decoration: BoxDecoration(
-            color: Colors.black54,
-          ),
-          child: Text(
-            'Games Menu',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.casino),
-          title: const Text('Blackjack'),
-          onTap: () {
-            Navigator.pop(context); // close drawer
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.cookie),
-          title: const Text('Coming Soon: Cookie Clicker'),
-          onTap: () {
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Cookie Clicker construction!")),
-            );
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.exit_to_app),
-          title: const Text('Exit Game'),
-          onTap: () {
-            Navigator.pop(context);
-            SystemNavigator.pop();
-          },
-        ),
-      ],
-    ),
-  ),
+  
   body: Center(
     child: Padding(
       padding: const EdgeInsets.all(16.0),
