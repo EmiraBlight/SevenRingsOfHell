@@ -30,7 +30,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   int currentBet = 100;
   int dealerBalance = 1000;
   bool inRound = false;
-  String player = 'angel';
+  String player = 'var';
 
   @override
   void initState() {
@@ -244,23 +244,15 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                      
                         TextButton(
                           onPressed: () {
                             balance = 1000;
                             dealerBalance = 5000;
-                            player = "cherri";
+                            player = "var";
                             resetGame();
                           },
-                          child: const Text("Cherri"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            balance = 1000;
-                            dealerBalance = 5000;
-                            player = "angel";
-                            resetGame();
-                          },
-                          child: const Text("Angel"),
+                          child: const Text("Varoskia"),
                         ),
                       ],
                     ),
