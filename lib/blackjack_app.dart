@@ -28,7 +28,7 @@ class _BlackjackHomePageState extends State<BlackjackHomePage> {
   bool showDealer = true;
   int balance = 1000;
   int currentBet = 100;
-  int dealerBalance = 1000;
+  int dealerBalance = 5000;
   bool inRound = false;
   String player = 'var';
 
